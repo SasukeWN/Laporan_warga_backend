@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const db = require('./db')
-const port = process.env.PORT 
+const port = process.env.PORT
 
 app.use(express.json());
 app.use(cors())
@@ -11,22 +11,32 @@ app.use(cors())
 const userRoute = require('./src/route/user.route')
 const laporanRoute = require('./src/route/laporan.route')
 
-const startServer = async () => {
+
+app.use('/api/warga', userRoute)
+app.use('/api/laporan', laporanRoute)
+
+app.get('/', (req, res) => {
+    res.send("API Berjalan dengan baik!");
+});
+
+// Route untuk mengecek status API dan Database
+app.get('/health', async (req, res) => {
     try {
-        await db.getConnection()
-        console.log("✅ Database MySQL Berhasil Terhubung (via Async/Await)!")
-
-        app.use('/api/warga', userRoute)
-        app.use('/api/laporan', laporanRoute)
-
-
-        app.listen(port, () => {
-            console.log(`server jalan di ${port}`)
-        })
+        // Coba jalankan query paling ringan
+        await db.execute('SELECT 1');
+        res.status(200).json({
+            status: "OK",
+            message: "API berjalan dan Database MySQL terhubung!"
+        });
     } catch (error) {
-        console.log("gagal konek message:" + error.message)
-        return
+        res.status(500).json({
+            status: "ERROR",
+            message: "API berjalan, TAPI Database gagal terhubung.",
+            error: error.message
+        });
     }
-}
+});
 
-startServer()
+module.exports = app
+
+
