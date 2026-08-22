@@ -6,7 +6,7 @@ const ambilListUser = async () => {
         const [users] = await db.execute(query)
         return users
     } catch (error) {
-        throw new Error('gagal query Get ' + error.message)
+        throw new Error('gagal query Get ')
     }
 }
 
@@ -17,7 +17,7 @@ const tambahUser = async (Nama_warga, Nik_Warga) => {
         const [result] = await db.execute(query, [Nama_warga, Nik_Warga])
         return result
     } catch (error) {
-        console.log("Error dari Database:", error.message);
+        console.log("Error dari Database");
         throw error;
     }
 }
@@ -39,7 +39,7 @@ const editUser = async (userId, updateData) => {
         return result
 
     } catch (error) {
-        console.log("Error dari Database:", error.message);
+        console.log("Error dari Database");
         throw error;
     }
 }
@@ -50,7 +50,7 @@ const hapusUser = async (userId) => {
         const [result] = await db.execute(query, [userId])
         return result
     } catch (error) {
-        console.log("Error dari Database:", error.message);
+        console.log("Error dari Database");
         throw error
     }
 }

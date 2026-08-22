@@ -16,7 +16,7 @@ const ambilListLaporan = async (req, res) => {
         return result
     }
     catch (error) {
-        console.log("Error dari Database:", error.message);
+        console.log("Error dari Database");
         throw error;
     }
 }
@@ -27,7 +27,7 @@ const ambilDataLaporan = async (req, res) => {
         const [result] = await db.execute(`SELECT * FROM users INNER JOIN laporan ON users.id = laporan.User_id`)
         return result
     } catch (error) {
-        console.log("Error dari Database:", error.message);
+        console.log("Error dari Database");
         throw error;
     }
 }
@@ -48,7 +48,7 @@ const tambahListLaporan = async (Nik_Warga, Judul_laporan, deskripsi, Lokasi) =>
         }
 
     } catch (error) {
-        console.log("Error dari Database:", error.message);
+        console.log("Error dari Database");
         throw error
     }
 }
@@ -72,7 +72,7 @@ const editLaporan = async (userId, isiData) => {
 
         return result
     } catch (error) {
-        console.log("Error dari Database:", error.message);
+        console.log("Error dari Database");
         throw error
     }
 
@@ -85,7 +85,7 @@ const hapusLaporan = async (userId) => {
         const [result] = await db.execute(query, [userId])
         return result
     } catch (error) {
-        console.log("Error dari Database:", error.message);
+        console.log("Error dari Database");
         throw error
     }
 }
